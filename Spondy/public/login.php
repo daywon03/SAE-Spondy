@@ -32,6 +32,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['flash']['warning'] = "Erreur : " . $e->getMessage();
     }
 }
-
-// Affichage du formulaire ou message flash si nécessaire
 ?>

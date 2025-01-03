@@ -9,7 +9,7 @@ require_once("./header.php");
 
 
 <main>
-    <form id="questionnaire" method="POST" style="display: block">
+    <form id="questionnaire" style="display: block">
 
     <div class="container">
 
@@ -157,7 +157,9 @@ require_once("./header.php");
                 </div>
 
             <div class="success-message" id="questionnaire-success"></div>
-    </div>
+                <div id="questionnaire-error" class="error-message" style="display: none; color: red;"></div>
+
+            </div>
         <button onclick="handleQuestionnaire(event)" type="submit">Soumettre</button>
 
     </form>

@@ -31,10 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $bdd = new \back\config();
         $pdo = $bdd->connexion();
 
-        $sql = "INSERT INTO questionnaire (age, region, situation_logement, cdaph, choix_logement, activite_pro, besoins_soutien, qualite_vie)
-                VALUES (:age, :region, :situation_logement, :cdaph, :choix_logement, :activite_pro, :besoins_soutien, :qualite_vie)";
+        // Vérifier si le questionnaire a déjà été rempli
+        $stmt = $pdo->prepare("SELECT id FROM questionnaire WHERE user_id = :user_id");
+        $stmt->execute(['user_id' => $_SESSION['user_id']]);
+        $existingEntry = $stmt->fetch();
+
+        if ($existingEntry) {
+            http_response_code(409); // Conflit
+            echo json_encode(["error" => "Le questionnaire a déjà été rempli."]);
+            exit;
+        }
+
+        $sql = "INSERT INTO questionnaire (user_id, age, region, situation_logement, cdaph, choix_logement, activite_pro, besoins_soutien, qualite_vie)
+                VALUES (:user_id, :age, :region, :situation_logement, :cdaph, :choix_logement, :activite_pro, :besoins_soutien, :qualite_vie)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
+            "user_id" => $_SESSION['user_id'],
             ":age" => $age,
             ":region" => $region,
             ":situation_logement" => $situation_logement,

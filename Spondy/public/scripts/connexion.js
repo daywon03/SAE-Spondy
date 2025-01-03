@@ -43,20 +43,16 @@ const handleQuestionnaire = async (event) => {
             })
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+            console.log("Réponse du serveur:", result);
+            alert("Merci d'avoir complété le questionnaire !");
+        } else if (response.status === 409) {
+            alert("Vous avez déjà rempli ce questionnaire.");
+        } else {
+            console.error("Erreur lors de l'envoi:", result.error);
         }
-
-        const result = await response.json();
-        console.log("Réponse du serveur:", result);
-
-        const successMessage = document.getElementById('questionnaire-success');
-        successMessage.textContent = 'Merci d\'avoir complété le questionnaire !';
-        successMessage.style.display = 'block';
     } catch (error) {
-        console.error("Erreur lors de l'envoi du formulaire:", error);
+        console.error("Erreur réseau:", error);
     }
 
 };
-
-

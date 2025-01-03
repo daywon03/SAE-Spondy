@@ -22,8 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         //Insère le nouvelle utilisateur
         $stmt = $pdo -> prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :pwd)");
         $stmt -> execute ([":name" =>$name,"email"=> $email, ":pwd"=>$password]);
-
-        echo "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+        $_SESSION['flash']['success'] = "Connexion réussie. Bienvenue !";
+        header("Location : connexion.php");
+        exit;
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }

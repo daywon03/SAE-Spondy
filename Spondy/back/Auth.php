@@ -30,6 +30,7 @@ class Auth
         // Si l'utilisateur est validé, on enregistre ses informations en session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_role'] = $user['role'];
     }
 }
 
@@ -46,9 +47,14 @@ try {
 
         try {
             $auth->login($email, $password);
-            $_SESSION['flash']['success'] = "Connexion réussie. Bienvenue !";
-            header("Location: questionnaire.php"); // Redirection après succès
+            if ($_SESSION['user_role'] == 'admin') {
+                header("Location: ../administrateur/admin.php");
+            }else{
+                $_SESSION['flash']['success'] = "Connexion réussie. Bienvenue !";
+                header("Location: questionnaire.php"); // Redirection après succès
+            }
             exit;
+
         } catch (Exception $e) {
             $_SESSION['flash']['error'] = $e->getMessage();
         }

@@ -26,7 +26,7 @@ require_once("./header.php");
             </div>
         </form>
 
-        <form id="signup-form" action="signup.php" method="POST">
+        <form id="signup-form"  action = "signup.php" method="POST">
     <h2>Créer un compte</h2>
     <div class="input-group">
         <label for="signup-name">Nom complet</label>
