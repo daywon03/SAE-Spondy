@@ -58,10 +58,3 @@ define('DB_PASSWORD', '');
   - **Besoins des utilisateurs** (barres verticales)  
 
 ---
-
-## 🎯 Améliorations futures  
-✅ Vérification avancée des entrées utilisateurs  
-✅ Authentification des administrateurs  
-✅ Système d’exportation des données (CSV, PDF)  
-
----
